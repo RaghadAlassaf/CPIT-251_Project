@@ -17,19 +17,17 @@ public class BookingTest {
     public void testBookAppointment() {
         
         UsersManagement.User client = new UsersManagement.User("C001", "Raghad", "0550084646", "123456", "Client");
-
         UsersManagement.User employee = new UsersManagement.User("E001", "Mona", "0551111111", "222222", "Employee", "Hair");
-
         ServiceManagement.Service service = new ServiceManagement.Service("S001", "Haircut", 80, "Hair");
 
-        Booking.Appointment appointment = new Booking.Appointment("A001", client, service, employee, "2026-05-05", "10:00 AM");
+        Booking.Appointment appointment = new Booking.Appointment("A001", client, service, employee, "15-05-2026", "1:00 PM");
 
         assertEquals("A001", appointment.id);
         assertEquals("Raghad", appointment.client.name);
         assertEquals("Haircut", appointment.service.name);
         assertEquals("Mona", appointment.employee.name);
-        assertEquals("2026-05-05", appointment.date);
-        assertEquals("10:00 AM", appointment.time);
+        assertEquals("15-05-2026", appointment.date);
+        assertEquals("1:00 PM", appointment.time);
         assertEquals("Booked", appointment.status);
         assertEquals("Pending", appointment.paymentStatus);
     }
