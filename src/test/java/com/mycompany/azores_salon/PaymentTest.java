@@ -16,9 +16,9 @@ public class PaymentTest {
   @Test
     public void testPaymentByCard() {
         
-        UsersManagment.User client = new UsersManagment.User("C001", "Raghad", "0550084646", "123456", "Client");
+        UsersManagement.User client = new UsersManagement.User("C001", "Raghad", "0550084646", "123456", "Client");
 
-        UsersManagment.User employee = new UsersManagment.User("E001", "Mona", "0551111111", "222222", "Employee", "Hair");
+        UsersManagement.User employee = new UsersManagement.User("E001", "Mona", "0551111111", "222222", "Employee", "Hair");
 
         ServiceManagement.Service service = new ServiceManagement.Service("S001", "Haircut", 80, "Hair");
 

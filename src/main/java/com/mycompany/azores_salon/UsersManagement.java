@@ -10,7 +10,7 @@ import java.util.*;
  *
  * @author ragha
  */
-public class UsersManagment {
+public class UsersManagement {
     
     static Scanner input = new Scanner(System.in);
     static ArrayList<User> users = new ArrayList<>();

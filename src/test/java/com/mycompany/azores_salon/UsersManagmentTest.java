@@ -16,9 +16,9 @@ public class UsersManagmentTest {
      @Test
     public void testCreateClientAccount() {
 
-        UsersManagment.User client = new UsersManagment.User("C004", "Seren", "0501502543", "123456", "Client");
+        UsersManagement.User client = new UsersManagement.User("C004", "Seren", "0501502543", "123456", "Client");
 
-        UsersManagment.users.add(client);
+        UsersManagement.users.add(client);
 
         assertEquals("C004", client.id);
         assertEquals("Seren", client.name);

@@ -11,8 +11,6 @@ import java.util.*;
  * @author ragha
  */
 public class Booking {
-    
-
   
 static ArrayList <Appointment> appointments = new ArrayList<>();
 static int appointmentCounter = 1;
@@ -22,12 +20,12 @@ static class Appointment {
     String status = "Booked";
     String paymentStatus = "Pending";
 
-    UsersManagment.User client;
-    UsersManagment.User employee;
+    UsersManagement.User client;
+    UsersManagement.User employee;
     ServiceManagement.Service service;
 
-    Appointment(String id, UsersManagment.User client, ServiceManagement.Service service,
-                UsersManagment.User employee, String date, String time) {
+    Appointment(String id, UsersManagement.User client, ServiceManagement.Service service,
+                UsersManagement.User employee, String date, String time) {
         this.id = id;
         this.client = client;
         this.service = service;
@@ -37,7 +35,7 @@ static class Appointment {
     }
 }
 
-static void clientMenu(UsersManagment.User client) {
+static void clientMenu(UsersManagement.User client) {
     Scanner input = new Scanner(System.in);
     int choice;
 
@@ -53,12 +51,15 @@ static void clientMenu(UsersManagment.User client) {
 
         if (choice == 1) {
             book(client);
-        } else if (choice == 2) {
+        } 
+        else if (choice == 2) {
             Payment.payMenu(client);
-        } else if (choice == 3) {
+        } 
+        else if (choice == 3) {
             System.out.println("");
             System.out.println("Client logged out successfully.");
-        } else {
+        }
+        else {
             System.out.println("");
             System.out.println("Invalid choice. Please try again.");
         }
@@ -66,7 +67,7 @@ static void clientMenu(UsersManagment.User client) {
     } while (choice != 3);
 }
 
-static void book(UsersManagment.User client) {
+static void book(UsersManagement.User client) {
     Scanner input = new Scanner(System.in);
 
     System.out.println("\n===== Book Appointment =====");
@@ -103,9 +104,9 @@ static void book(UsersManagment.User client) {
 
     ServiceManagement.Service selectedService = serviceList.get(serviceChoice - 1);
 
-    ArrayList<UsersManagment.User> employeeList = new ArrayList<>();
+    ArrayList<UsersManagement.User> employeeList = new ArrayList<>();
 
-    for (UsersManagment.User user : UsersManagment.users) {
+    for (UsersManagement.User user : UsersManagement.users) {
         if (user.type.equals("Employee") && user.role.equals(type)) {
             employeeList.add(user);
         }
@@ -118,7 +119,7 @@ static void book(UsersManagment.User client) {
 
     System.out.println("\nChoose employee:");
     for (int i = 0; i < employeeList.size(); i++) {
-        UsersManagment.User employee = employeeList.get(i);
+        UsersManagement.User employee = employeeList.get(i);
         System.out.println((i + 1) + ". " + employee.name + " - " + employee.role);
     }
     System.out.println("");
@@ -130,21 +131,14 @@ static void book(UsersManagment.User client) {
         return;
     }
 
-    UsersManagment.User selectedEmployee = employeeList.get(employeeChoice - 1);
+    UsersManagement.User selectedEmployee = employeeList.get(employeeChoice - 1);
 
     String date = chooseDate();
     String time = chooseTime();
 
     String id = String.format("A%03d", appointmentCounter++);
 
-    Appointment appointment = new Appointment(
-            id,
-            client,
-            selectedService,
-            selectedEmployee,
-            date,
-            time
-    );
+    Appointment appointment = new Appointment( id, client, selectedService, selectedEmployee, date, time );
 
     appointments.add(appointment);
     
@@ -195,7 +189,7 @@ static String chooseType() {
 static String chooseDate() {
     Scanner input = new Scanner(System.in);
 
-    String[] dates = {"2026-05-14", "2026-05-15", "2026-05-16"};
+    String[] dates = {"14-05-2026", "15-05-2026", "16-05-2026"};
     System.out.println("");
     System.out.println("Choose appointment date:");
     for (int i = 0; i < dates.length; i++) {
@@ -216,7 +210,7 @@ static String chooseDate() {
 static String chooseTime() {
     Scanner input = new Scanner(System.in);
 
-    String[] times = {"10:00 AM", "12:00 PM", "4:00 PM", "6:00 PM"};
+    String[] times = {"1:00 PM", "2:00 PM", "6:00 PM", "8:00 PM"};
 
     System.out.println("");
     System.out.println("Choose appointment time:");

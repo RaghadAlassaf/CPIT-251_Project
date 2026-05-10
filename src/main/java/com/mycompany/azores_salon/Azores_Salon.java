@@ -13,12 +13,11 @@ public class Azores_Salon {
     public static void main(String[] args) {
       
         ServiceManagement service = new ServiceManagement();
-        UsersManagment users = new UsersManagment();
+        UsersManagement users = new UsersManagement();
 
         users.addDefaultUsers();
         service.addDefaultServices();
 
-    
         int choice;
 
         do {

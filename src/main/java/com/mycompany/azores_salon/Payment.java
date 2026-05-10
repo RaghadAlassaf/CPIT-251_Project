@@ -14,11 +14,11 @@ public class Payment {
     
     static int paymentCounter = 1;
 
-    static void payMenu(UsersManagment.User client) {
+    static void payMenu(UsersManagement.User client) {
         ArrayList<Booking.Appointment> pendingAppointments = new ArrayList<>();
 
         for (Booking.Appointment appointment : Booking.appointments) {
-            if (appointment.client == client && appointment.paymentStatus.equals("Pending")) {
+            if (appointment.client.id.equals(client.id) && appointment.paymentStatus.equals("Pending")) {
                 pendingAppointments.add(appointment);
             }
         }
