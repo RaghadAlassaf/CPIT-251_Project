@@ -15,7 +15,7 @@ public class Booking {
 static ArrayList <Appointment> appointments = new ArrayList<>();
 static int appointmentCounter = 1;
 
-static class Appointment {
+public static class Appointment {
     String id, date, time;
     String status = "Booked";
     String paymentStatus = "Pending";
@@ -24,8 +24,7 @@ static class Appointment {
     UsersManagement.User employee;
     ServiceManagement.Service service;
 
-    Appointment(String id, UsersManagement.User client, ServiceManagement.Service service,
-                UsersManagement.User employee, String date, String time) {
+public Appointment(String id, UsersManagement.User client, ServiceManagement.Service service, UsersManagement.User employee, String date, String time) {
         this.id = id;
         this.client = client;
         this.service = service;
@@ -35,111 +34,67 @@ static class Appointment {
     }
 }
 
-static void clientMenu(UsersManagement.User client) {
-    Scanner input = new Scanner(System.in);
-    int choice;
-
-    do {
-        System.out.println("\n===== Client Menu =====");
-        System.out.println("1. Book Appointment ");
-        System.out.println("2. Pay for Appointment");
-        System.out.println("3. Logout from Client Account");
-        System.out.println("");
-        System.out.print("Enter your choice: ");
-
-        choice = input.nextInt();
-
-        if (choice == 1) {
-            book(client);
-        } 
-        else if (choice == 2) {
-            Payment.payMenu(client);
-        } 
-        else if (choice == 3) {
-            System.out.println("");
-            System.out.println("Client logged out successfully.");
-        }
-        else {
-            System.out.println("");
-            System.out.println("Invalid choice. Please try again.");
-        }
-
-    } while (choice != 3);
-}
-
 static void book(UsersManagement.User client) {
     Scanner input = new Scanner(System.in);
 
     System.out.println("\n===== Book Appointment =====");
+    String type = ServiceManagement.chooseType();
 
-    String type = chooseType();
-
+    //Display Service
     ArrayList<ServiceManagement.Service> serviceList = new ArrayList<>();
-
-    for (ServiceManagement.Service service : ServiceManagement.services) {
-        if (service.type.equals(type)) {
-            serviceList.add(service);
+    for (ServiceManagement.Service s : ServiceManagement.services) {
+        if (s.type.equals(type)) {
+            serviceList.add(s);
         }
     }
-
-    if (serviceList.isEmpty()) {
-        System.out.println("No services available for this type.");
-        return;
-    }
-
-    System.out.println("\nChoose service:");
+    System.out.println("--------------------------------------");
+    System.out.println("Choose service:");
     for (int i = 0; i < serviceList.size(); i++) {
-        ServiceManagement.Service service = serviceList.get(i);
-        System.out.println((i + 1) + ". " + service.name + " - " + service.price + " SAR");
+        System.out.println((i + 1) + ". " + serviceList.get(i).name + " - " + serviceList.get(i).price + " SAR");
     }
-    System.out.println("");
+    System.out.println("--------------------------------------");
     System.out.print("Enter service number: ");
     int serviceChoice = input.nextInt();
 
-    if (serviceChoice < 1 || serviceChoice > serviceList.size()) {
-        System.out.println("");
-        System.out.println("Invalid service choice.");
-        return;
-    }
-
-    ServiceManagement.Service selectedService = serviceList.get(serviceChoice - 1);
-
+    //Display Employee
     ArrayList<UsersManagement.User> employeeList = new ArrayList<>();
 
-    for (UsersManagement.User user : UsersManagement.users) {
-        if (user.type.equals("Employee") && user.role.equals(type)) {
-            employeeList.add(user);
+    for (UsersManagement.User u : UsersManagement.users) {
+        if (u.type.equals("Employee") && u.role.equals(type)) {
+            employeeList.add(u);
         }
     }
-
-    if (employeeList.isEmpty()) {
-        System.out.println("No employees available for this service type.");
-        return;
-    }
-
     System.out.println("\nChoose employee:");
     for (int i = 0; i < employeeList.size(); i++) {
-        UsersManagement.User employee = employeeList.get(i);
-        System.out.println((i + 1) + ". " + employee.name + " - " + employee.role);
+        System.out.println((i + 1) + ". " + employeeList.get(i).name);
     }
-    System.out.println("");
+    System.out.println("--------------------------------------");
     System.out.print("Enter employee number: ");
     int employeeChoice = input.nextInt();
 
-    if (employeeChoice < 1 || employeeChoice > employeeList.size()) {
-        System.out.println("Invalid employee choice.");
-        return;
+    //Display Date
+    System.out.println("--------------------------------------");
+    System.out.println("Choose appointment date:");
+    String[] dates = {"14-05-2026", "15-05-2026", "16-05-2026"};
+    for (int i = 0; i < dates.length; i++) {
+    System.out.println((i + 1) + ". " + dates[i]);
     }
+    System.out.println("Enter your choice:");
+    int Datechoice = input.nextInt();
 
-    UsersManagement.User selectedEmployee = employeeList.get(employeeChoice - 1);
-
-    String date = chooseDate();
-    String time = chooseTime();
+    //Display Time
+    System.out.println("--------------------------------------");
+    System.out.println("Choose appointment time:");
+    String[] time =  {"1:00 PM", "2:00 PM", "6:00 PM", "8:00 PM"};
+    for (int i = 0; i < time.length; i++) {
+        System.out.println((i + 1) + ". " + time[i]);
+    }
+    System.out.println("--------------------------------------");
+    System.out.print("Enter your choice: ");
+    int Timechoice = input.nextInt();
 
     String id = String.format("A%03d", appointmentCounter++);
-
-    Appointment appointment = new Appointment( id, client, selectedService, selectedEmployee, date, time );
-
+    Appointment appointment = new Appointment( id, client, serviceList.get(serviceChoice-1), employeeList.get(employeeChoice-1), dates[Datechoice-1], time[Timechoice-1] );
     appointments.add(appointment);
     
     System.out.println("");
@@ -147,6 +102,7 @@ static void book(UsersManagement.User client) {
     System.out.println("Appointment booked successfully.");
     displayAppointment(appointment);
 
+    
     System.out.println("\nDo you want to pay now?");
     System.out.println("1. Yes");
     System.out.println("2. Pay later");
@@ -160,74 +116,6 @@ static void book(UsersManagement.User client) {
         System.out.println("");
         System.out.println("Payment saved as pending.");
     }
-}
-
-static String chooseType() {
-    Scanner input = new Scanner(System.in);
-
-    System.out.println("\nChoose service type:");
-    System.out.println("1. Hair Services");
-    System.out.println("2. Skin Services");
-    System.out.println("3. Nails Services");
-    System.out.println("");
-    System.out.print("Enter your choice: ");
-
-    int choice = input.nextInt();
-
-    if (choice == 1) {
-        return "Hair";
-    } else if (choice == 2) {
-        return "Skin";
-    } else if (choice == 3) {
-        return "Nails";
-    } else {
-        System.out.println("Invalid choice. Hair Services selected by default.");
-        return "Hair";
-    }
-}
-
-static String chooseDate() {
-    Scanner input = new Scanner(System.in);
-
-    String[] dates = {"14-05-2026", "15-05-2026", "16-05-2026"};
-    System.out.println("");
-    System.out.println("Choose appointment date:");
-    for (int i = 0; i < dates.length; i++) {
-        System.out.println((i + 1) + ". " + dates[i]);
-    }
-    System.out.println("");
-    System.out.print("Enter your choice: ");
-    int choice = input.nextInt();
-
-    if (choice < 1 || choice > dates.length) {
-        System.out.println("Invalid choice. First date selected.");
-        return dates[0];
-    }
-
-    return dates[choice - 1];
-}
-
-static String chooseTime() {
-    Scanner input = new Scanner(System.in);
-
-    String[] times = {"1:00 PM", "2:00 PM", "6:00 PM", "8:00 PM"};
-
-    System.out.println("");
-    System.out.println("Choose appointment time:");
-    for (int i = 0; i < times.length; i++) {
-        System.out.println((i + 1) + ". " + times[i]);
-    }
-
-    System.out.println("");
-    System.out.print("Enter your choice: ");
-    int choice = input.nextInt();
-
-    if (choice < 1 || choice > times.length) {
-        System.out.println("Invalid choice. First time selected.");
-        return times[0];
-    }
-
-    return times[choice - 1];
 }
 
 static void displayAppointment(Appointment appointment) {

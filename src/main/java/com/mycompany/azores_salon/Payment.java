@@ -14,7 +14,9 @@ public class Payment {
     
     static int paymentCounter = 1;
 
-    static void payMenu(UsersManagement.User client) {
+    public static void payMenu(UsersManagement.User client) {
+        
+        Scanner input = new Scanner(System.in);
         ArrayList<Booking.Appointment> pendingAppointments = new ArrayList<>();
 
         for (Booking.Appointment appointment : Booking.appointments) {
@@ -36,17 +38,11 @@ public class Payment {
                     + " | Service: " + appointment.service.name
                     + " | Amount: " + appointment.service.price + " SAR");
         }
-
-        Scanner input = new Scanner(System.in);
-
+        
+        
         System.out.println("");
         System.out.print("Choose appointment to pay: ");
         int choice = input.nextInt();
-
-        if (choice < 1 || choice > pendingAppointments.size()) {
-            System.out.println("Invalid appointment choice.");
-            return;
-        }
 
         pay(pendingAppointments.get(choice - 1));
     }
@@ -83,9 +79,6 @@ public class Payment {
                 System.out.println("Invalid CVV. It must be 3 digits.");
                 return;
             }
-        } else if (choice != 1) {
-            System.out.println("Invalid payment method.");
-            return;
         }
 
         String paymentId = String.format("P%03d", paymentCounter++);

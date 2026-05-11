@@ -12,7 +12,6 @@ import java.util.*;
  */
 public class UsersManagement {
     
-    static Scanner input = new Scanner(System.in);
     static ArrayList<User> users = new ArrayList<>();
     static int clientCounter = 4;
 
@@ -20,7 +19,7 @@ public class UsersManagement {
         String id, name, mobile, password, type, role;
 
         // for clients , manager 
-        User(String id, String name, String mobile, String password, String type) {
+    public User(String id, String name, String mobile, String password, String type) {
         this.id = id;
         this.name = name;
         this.mobile = mobile;
@@ -30,7 +29,7 @@ public class UsersManagement {
     }
         
         // for employees 
-        User(String id, String name, String mobile, String password, String type, String role) {
+    public User(String id, String name, String mobile, String password, String type, String role) {
             this.id = id;
             this.name = name;
             this.mobile = mobile;
@@ -53,16 +52,17 @@ public class UsersManagement {
         users.add(new User("Manager001", "Admin", "0500000000", "admin123", "Manager"));
     }
 
-    static boolean isValidMobile(String mobile) {
+    public static boolean isValidMobile(String mobile) {
         return mobile.matches("\\d{10}");
     }
 
-    static boolean isValidPassword(String password) {
+    public static boolean isValidPassword(String password) {
         return password.length() >= 6;
     }
 
-    static void registerClientMenu() {
-        input.nextLine();
+    public static void registerClientMenu() {
+        
+        Scanner input = new Scanner(System.in);
 
         System.out.println("\n===== Create Client Account =====");
 
@@ -96,10 +96,11 @@ public class UsersManagement {
         System.out.println("============================================");
     }
 
-    static void clientLoginMenu() {
-        input.nextLine();
+    public static User Login() {
+        
+        Scanner input = new Scanner(System.in);
 
-        System.out.println("\n===== Client Login =====");
+        System.out.println("\n===== Login =====");
 
         System.out.print("Enter mobile number: ");
         String mobile = input.nextLine();
@@ -108,37 +109,15 @@ public class UsersManagement {
         String password = input.nextLine();
 
         for (User u : users) {
-            if (u.mobile.equals(mobile) && u.password.equals(password) && u.type.equals("Client")) {
+            if (u.mobile.equals(mobile) && u.password.equals(password)) {
                 System.out.println("");
-                System.out.println("Client login successful.");
-                Booking.clientMenu(u);
-                return;
+                System.out.println("Login successful.");
+                return u;
             }
         }
         System.out.println("");
-        System.out.println("Login failed. Please check your mobile number or password.");
+        System.out.println("Login failed.");
+        return null;
     }
 
-    static void managerLoginMenu() {
-        input.nextLine();
-
-        System.out.println("\n===== Manager Login =====");
-
-        System.out.print("Enter manager mobile number: ");
-        String mobile = input.nextLine();
-
-        System.out.print("Enter password: ");
-        String password = input.nextLine();
-
-        for (User u : users) {
-            if (u.mobile.equals(mobile) && u.password.equals(password) && u.type.equals("Manager")) {
-                System.out.println("");
-                System.out.println("Manager login successful.");
-                ServiceManagement.managerMenu();
-                return;
-            }
-        }
-        System.out.println("");
-        System.out.println("Manager login failed. Please check your mobile number or password.");
-    }
 }
