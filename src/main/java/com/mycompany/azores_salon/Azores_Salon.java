@@ -42,12 +42,13 @@ public class Azores_Salon {
                 case 2:
                     UsersManagement.User user = users.Login();
 
+                    if (user != null){
                         if (user.type.equals("Client")) {
                             clientMenu(user);
                         }
                         else if (user.type.equals("Manager")) {
                             managerMenu();
-                        }
+                        } }
                     break;
                 case 3:
                     System.out.println("Thank you for using Azores Salon System.");
