@@ -34,7 +34,7 @@ public Appointment(String id, UsersManagement.User client, ServiceManagement.Ser
     }
 }
 
-static void book(UsersManagement.User client) {
+public static void book(UsersManagement.User client) {
     Scanner input = new Scanner(System.in);
 
     System.out.println("\n===== Book Appointment =====");
@@ -102,7 +102,6 @@ static void book(UsersManagement.User client) {
     System.out.println("Appointment booked successfully.");
     displayAppointment(appointment);
 
-    
     System.out.println("\nDo you want to pay now?");
     System.out.println("1. Yes");
     System.out.println("2. Pay later");

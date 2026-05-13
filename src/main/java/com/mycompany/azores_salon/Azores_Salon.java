@@ -15,8 +15,7 @@ public class Azores_Salon {
 
     public static void main(String[] args) {
       
-        Scanner input = new Scanner(System.in);
-        
+        Scanner input = new Scanner(System.in); 
         ServiceManagement service = new ServiceManagement();
         UsersManagement users = new UsersManagement();
         users.addDefaultUsers();

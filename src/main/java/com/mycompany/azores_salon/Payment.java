@@ -47,9 +47,8 @@ public class Payment {
         pay(pendingAppointments.get(choice - 1));
     }
 
-    static void pay(Booking.Appointment appointment) {
+    public static void pay(Booking.Appointment appointment) {
         Scanner input = new Scanner(System.in);
-
         System.out.println("\n===== Payment =====");
         System.out.println("Appointment ID: " + appointment.id);
         System.out.println("Amount: " + appointment.service.price + " SAR");
@@ -63,15 +62,13 @@ public class Payment {
 
         if (choice == 2) {
             input.nextLine();
-
             System.out.print("Enter card number (16 digits): ");
             String cardNumber = input.nextLine();
-
             if (!cardNumber.matches("\\d{16}")) {
                 System.out.println("Invalid card number. It must be 16 digits.");
                 return;
             }
-
+            
             System.out.print("Enter CVV (3 digits): ");
             String cvv = input.nextLine();
 
@@ -80,12 +77,9 @@ public class Payment {
                 return;
             }
         }
-
         String paymentId = String.format("P%03d", paymentCounter++);
-
         appointment.paymentStatus = "Paid";
         appointment.status = "Paid";
-
         System.out.println("============================================");
         System.out.println("Payment completed successfully.");
         System.out.println("Payment ID: " + paymentId);

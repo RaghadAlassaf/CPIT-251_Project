@@ -33,7 +33,7 @@ public class ServiceManagement {
         services.add(new Service("S004", "Manicure and Pedicure", 120, "Nails"));
     }
 
-    static void addServiceMenu() {
+    public static void addServiceMenu() {
         
         Scanner input = new Scanner(System.in);
 

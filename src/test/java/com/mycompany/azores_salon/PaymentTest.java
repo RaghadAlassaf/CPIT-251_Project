@@ -21,8 +21,7 @@ public class PaymentTest {
         ServiceManagement.Service service = new ServiceManagement.Service("S001", "Haircut", 80, "Hair");
         Booking.Appointment appointment = new Booking.Appointment("A001", client, service, employee, "15-05-2026", "1:00 PM");
         String cardNumber = "1234567812345678";
-        String cvv = "123";
-        
+        String cvv = "123";        
         
         boolean validCard = cardNumber.matches("\\d{16}");
         boolean validCVV = cvv.matches("\\d{3}");
@@ -31,8 +30,7 @@ public class PaymentTest {
             appointment.paymentStatus = "Paid";
             appointment.status = "Paid";
         }
- 
-        
+   
         assertTrue(validCard);
         assertTrue(validCVV);
         assertTrue(appointment.paymentStatus.equals("Paid"));
